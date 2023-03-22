@@ -1,0 +1,34 @@
+module Main exposing (main)
+import List exposing (..)
+
+
+import Html
+unpairAtMost : Int -> List (a,a) -> List a
+unpairAtMost n pairs =
+    if n <= 0 then
+        []
+    else
+      let
+        lists = List.map (\(a, b) -> [a, b]) pairs
+        listsWithLengths = List.map (\list -> (list, List.length list)) lists
+        (result, _) = foldl (\(acc, i) (list, length) ->
+                                if i >= n then
+                                    (acc, i)
+                                else
+                                    (list ++ acc, i + length)
+                            ) ([], 0) listsWithLengths
+    in
+        result
+
+
+
+
+main =
+    let
+       
+        _ = Debug.log "" (unpairAtMost -1 [(10,20),(30,40),(50,60)])
+    
+        
+    in
+    -- Ignore the line below
+    Html.text ""
